@@ -105,3 +105,7 @@ infrastructure/sns-topic.yaml
 ## Architecure 3
 
 <img src="architecture-design/architecture3.jpg" alt="Alt text" title="Architecture 1" />
+
+## Architecure Explaination
+
+[Architecture Design](architecture-design/architecture_design.pdf)
