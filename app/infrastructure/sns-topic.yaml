@@ -1,0 +1,9 @@
+Resources:
+  SupportSNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: Job Failure Notifications
+      TopicName: stackoverflow-etl-sns
+      Subscription:
+        - Protocol: email
+          Endpoint: support@company.com

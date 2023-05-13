@@ -1,0 +1,60 @@
+{
+  "Comment": "A Step Function to execute 3 Glue Jobs synchronously and send a notification if any of them fail",
+  "StartAt": "Job1",
+  "States": {
+    "Job1": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
+      "Parameters": {
+        "JobName": "job1",
+        "Arguments": {}
+      },
+      "Next": "Job2",
+      "Catch": [
+        {
+          "ErrorEquals": ["States.TaskFailed"],
+          "Next": "NotifyFailure"
+        }
+      ]
+    },
+    "Job2": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
+      "Parameters": {
+        "JobName": "job2",
+        "Arguments": {}
+      },
+      "Next": "Job3",
+      "Catch": [
+        {
+          "ErrorEquals": ["States.TaskFailed"],
+          "Next": "NotifyFailure"
+        }
+      ]
+    },
+    "Job3": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::glue:startJobRun.sync",
+      "Parameters": {
+        "JobName": "job3",
+        "Arguments": {}
+      },
+      "End": true,
+      "Catch": [
+        {
+          "ErrorEquals": ["States.TaskFailed"],
+          "Next": "NotifyFailure"
+        }
+      ]
+    },
+    "NotifyFailure": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::sns:publish",
+      "Parameters": {
+        "Message": "One or more Glue Jobs have failed!",
+        "TopicArn": "arn:aws:sns:us-east-1:123456789012:my-topic"
+      },
+      "End": true
+    }
+  }
+}

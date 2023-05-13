@@ -1,0 +1,20 @@
+Resources:
+  EventRule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: trigger-lambda-every-minute
+      ScheduleExpression: "cron(0/1 * * * ? *)"
+      State: ENABLED
+      Targets:
+        - Arn: !GetAtt LambdaFunction.Arn
+          Id: "TargetFunction"
+          
+  LambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket: <your_bucket_name>
+        S3Key: <your_lambda_code_key>
+      Handler: lambda_function.lambda_handler
+      Role: <your_lambda_execution_role_arn>
+      Runtime: python3.8
