@@ -98,11 +98,11 @@ infrastructure/sns-topic.yaml
 
 # Alternative Data Analytics Architecture
 
-## Architecure 2
+## Architecure 2 using EMR
 
 <img src="architecture-design/architecture2.jpg" alt="Alt text" title="Architecture 1" />
 
-## Architecure 3
+## Architecure 3 using Event Driven Architecture
 
 <img src="architecture-design/architecture3.jpg" alt="Alt text" title="Architecture 1" />
 
